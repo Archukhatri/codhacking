@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 
 
@@ -78,4 +78,4 @@
 
 
 
-@stop
+@stop --}}

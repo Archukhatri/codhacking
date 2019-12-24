@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 
 
@@ -49,4 +49,4 @@
 </div>
 
 
-@stop
+@stop  --}}

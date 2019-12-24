@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{--  @extends('layouts.admin')
 
 
 
@@ -8,4 +8,4 @@
 	<h1>Edit Post</h1>
 
 
-@stop
+@stop  --}}

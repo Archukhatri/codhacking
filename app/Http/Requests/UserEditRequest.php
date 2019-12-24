@@ -29,7 +29,7 @@ class UserEditRequest extends Request
             'name'=> 'required',
             'email'=> 'required',
             'role_id'=> 'required',
-            'is_active'=> 'required',
+            'is_active'=> 'required'
         ];
     }
 }
