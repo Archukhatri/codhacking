@@ -53,40 +53,41 @@ class AdminUsersController extends Controller
     public function store(UsersRequest $request)
     {
         //
+        if (trim($request->password) == '') {
 
-        // if (trim($request->password) == '') {
+            $input = $request->except('password');
 
-        //     $input = $request->except('password');
-
-        // }else{
+        }else{
             
-        //     $input = $request->all();
+            $input = $request->all();
 
-        //     $input['password'] = bcrypt($request->password);
+            $input['password'] = bcrypt($request->password);
 
-        // } 
+        } 
 
+        // $input = $request->all();
+        if($file = $request->file('photo_id')) {
 
-        // if($file = $request->file('photo_id')) {
+            $name = time() . $file->getClientOriginalName();
 
-        //     $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
 
-        //     $file->move('images', $name);
+            $photo = Photo::create(['file'=>$name]); 
 
-        //     $photo = Photo::create(['file'=>$name]); 
+            $input['photo_id'] = $photo->id;
 
-        //     $input['photo_id'] = $photo->id;
+        }
 
-        // }
+            $input['password'] = bcrypt($request->password);
+            User::create($input);
 
-        // User::create($input);
-
-        User::create($request->all());
-        return redirect('/admin/users');
-
-
-        // return $request->all();
+            return redirect('/admin/users');    
     }
+
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -111,13 +112,12 @@ class AdminUsersController extends Controller
     {
         //
 
-        // $user = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        // $roles = Role::lists('name','id')->all();
+        $roles = Role::lists('name','id')->all();
 
-        // return view('admin.users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles'));
 
-        return view('admin.users.edit');
     }
 
     /**
@@ -130,39 +130,42 @@ class AdminUsersController extends Controller
     public function update(UserEditRequest $request, $id)
     {
         //
+        // return $request->all();
 
-        // $user = User::findOrFail($id);
 
-        // if (trim($request->password) == '') {
 
-        //     $input = $request->except('password');
+        $user = User::findOrFail($id);
 
-        // }else{
+         if (trim($request->password) == '') {
+
+            $input = $request->except('password');
+
+        }else{
             
-        //     $input = $request->all();
+            $input = $request->all();
 
-        //     $input['password'] = bcrypt($request->password);
+            $input['password'] = bcrypt($request->password);
 
-        // } 
+        } 
+        
+        $input = $request->all();
 
-
-        // $input = $request->all();
-
-        // if ($file = $request->file('photo_id')) {
+        if ($file = $request->file('photo_id')) {
             
-        //     $name = time() . $file->getClientOriginalName();
+            $name = time() . $file->getClientOriginalName();
 
-        //     $file->move('images', $name);
+            $file->move('images', $name);
 
-        //     $photo = Photo::create(['file'=>$name]);
+            $photo = Photo::create(['file'=>$name]);
 
-        //     $input['photo_id'] = $photo->id;
+            $input['photo_id'] = $photo->id;
 
-        // }
+        }
+        $user->update($input);
 
-        // $user->update($input);
+        return redirect('/admin/users'); 
 
-        // return redirect('/admin/users'); 
+
     }
 
     /**
@@ -175,15 +178,15 @@ class AdminUsersController extends Controller
     {
         //
 
-        // $user = User::findOrFail($id);
-        // $path = str_replace('..','', $user->photo->file);
+        $user = User::findOrFail($id);
+        $path = str_replace('..','', $user->photo->file);
 
-        // unlink(public_path() . $path);
+        unlink(public_path() . $path);
 
-        // $user->delete();
+        $user->delete();
 
-        // Session::flash('deleted_user','The user has been deleted');
+        Session::flash('deleted_user','The user has been deleted');
 
-        // return redirect('/admin/users');
+        return redirect('/admin/users');
     }
 }

@@ -37,6 +37,10 @@ class User extends Authenticatable
 
     }
 
+
+
+
+
     // public function setPasswordAttribute($password){
 
     //     if (!empty($password)) {
@@ -44,6 +48,9 @@ class User extends Authenticatable
     //         $this->attribute['password'] = bcrypt($password);
     //     }
     // }
+
+
+    
 
     public function isAdmin(){
 
