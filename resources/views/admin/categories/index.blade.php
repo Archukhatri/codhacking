@@ -26,6 +26,7 @@
 			<tr>
 				<th>id</th>
 				<th>Name</th>
+				<th>Edit</th>
 				<th>Created date</th>
 			</tr>
 		</thead>
@@ -34,6 +35,7 @@
 			<tr>
 				<td>{{$category->id}}</td>
 				<td>{{$category->name}}</td>
+				<td><a href="{{route('admin.categories.edit', $category->id)}}">Edit</a></td>
 				<td>{{$category->created_at ? $category->created_at->diffForHumans() : 'has no date'}}</td>
 			</tr>
 			@endforeach
