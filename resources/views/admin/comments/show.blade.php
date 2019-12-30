@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
-@if(count($comments) > 0)
+@if($comments)
 		<h1>Comments</h1>
 
 	<table class="table">
@@ -23,11 +23,6 @@
 				<td>{{$comment->body}}</td>
 				<td>
 					<a href="{{route('home.post', $comment->post->id)}}">View Post</a>
-				</td>
-
-
-				<td>
-					<a href="{{route('admin.comments.replies.show', $comment->id)}}">View Replies</a>
 				</td>
 
 				<td>
@@ -61,8 +56,8 @@
 			@endforeach
 		</tbody>
 	</table>
+	
 	@else
 	<h1 class="text-center">No Comments</h1>
-
-	@endif	
+@endif
 @stop

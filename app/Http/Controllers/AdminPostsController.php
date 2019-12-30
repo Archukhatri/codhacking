@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\PostsCreateRequest;
 use App\Photo;
 use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -136,7 +137,7 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) 
     {
         //
         //  $post = Post::findOrFail($id);
@@ -156,5 +157,16 @@ unlink(public_path() . $path);
 $post->delete();
 
 return redirect('/admin/posts');
+    }
+
+
+
+
+
+
+    public function post($id){
+        $post = Post::findOrFail($id);
+        $comments = $post->comments()->whereIsActive(1)->get();
+        return view('post', compact('post', 'comments'));
     }
 }
